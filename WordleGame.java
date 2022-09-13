@@ -32,7 +32,6 @@ public class WordleGame
                 String word = s.nextLine();
                 int len = word.length();
                 //possibleAnswers is an arraylist of all possible answers taken from the txt file. 
-                //ex: ["match", "bangs", "adieu"]
                 possibleAnswers.add(word.substring(len - 5).toLowerCase());
             }
         }
@@ -66,14 +65,12 @@ public class WordleGame
                 return 6 - guessesRemaining;
             }
         }
-        //never got the answer
+
         System.out.println("The word was: " + answer);
         return -1;
     }
 
     //this method evaluates the performance of the AI wordle player
-    //by measurng how many guesses it takes to guess each possible answer in the possible answers list
-    //than averages the guesses by dividing totalGuesses/all answers 
     public static double evaluatePlayer()
     {   
         int totalGuesses = 0;
@@ -85,7 +82,6 @@ public class WordleGame
             int guesses = 1; 
             int[] results = null;
             AIWordlePlayer player = new AIWordlePlayer();
-            //keep guessing untill the AI gets the right answer 
             while(true)
             {
                 String guess = player.getGuess(results, 0);
@@ -105,11 +101,6 @@ public class WordleGame
         return average;
     }
 
-    //returns an int array that corresponds to the given letter
-    //0 is letter not in word
-    //1 is letter in word, but not at correct spot
-    //2 is letter in word and at correct spot
-    //null means a guess is invalid
     private int [] makeGuess(String guess)
     {
         if (guess.length() != 5 || !allowedGuesses.contains(guess))
@@ -137,12 +128,11 @@ public class WordleGame
     }
     public static void main(String [] args)
     {
-        //an example using a human player
-        WordleGame wg = new WordleGame();  //make the game
+        WordleGame wg = new WordleGame(); 
         //WordlePlayer player = new HumanWordlePlayer();  //make the player
         WordlePlayer player = new AIWordlePlayer();
-        int score = wg.playGame(player);  //play the game
-        if (score == -1)  //evaluate the score
+        int score = wg.playGame(player); 
+        if (score == -1)
         {
             System.out.println("You failed...");
         }
@@ -150,7 +140,6 @@ public class WordleGame
         {
             System.out.println("Congratulations, you got the word in " + score + " guesses"); 
         }
-        //evaluates AI: for me it returns around 3.6769164140320485 attempts to correctly guess the word on average 
         double average = evaluatePlayer();
         System.out.println(average);
     }
