@@ -17,7 +17,6 @@ public class AIWordlePlayer extends WordlePlayer
         try
         {
             //load the words for guesses from text files
-            //dont cheat and also load the answers 
             Scanner s = new Scanner(new File("wordleWords.txt"));
             while (s.hasNext())
             {
@@ -38,7 +37,6 @@ public class AIWordlePlayer extends WordlePlayer
             System.out.println(e);
         }
     }
-    //I copied and pasted this from the WordleGame class makeGuess method so that I can use it's code here, but added extra parameters. 
     public static int [] makeResult(String guess, String answer)
     {
         int [] ret = new int [5];
@@ -59,8 +57,6 @@ public class AIWordlePlayer extends WordlePlayer
         }
         return ret; 
     }
-    //this method converts the words in results to an list of integers
-    //for example x in result would be converted to like [0, 1, 2, 0, 0] etc. Used place 3 counting. 
     public static int convert(int [] result)
     {
         int i = 0; 
@@ -93,7 +89,6 @@ public class AIWordlePlayer extends WordlePlayer
         }
         return score;
     }
-    //this is the code that cuts down the list depending on previous feedback, and returns the best Guess. 
     public String getGuess(int [] previousResults, int guessesRemaining)
     {   
         if (previousResults == null)
@@ -117,15 +112,12 @@ public class AIWordlePlayer extends WordlePlayer
             }
             if(allowedGuesses.size() == 1)
             {
-                // System.out.println("Guess is: " + allowedGuesses.get(0));
                 return allowedGuesses.get(0);
             }
 
             String bestGuess = null; 
             double bestScore = -1; 
-
-            //at this point we should have converted all words to scores, now we just loop through allGuesses untill we get 
-            //the largest score
+            
             for(String guess: allGuesses)
             {
                 double score = getScore(guess);
@@ -136,7 +128,6 @@ public class AIWordlePlayer extends WordlePlayer
                 }
             }
             previousGuess = bestGuess;
-            // System.out.println("Guess is: " + bestGuess);
             return bestGuess;
         }
     }
