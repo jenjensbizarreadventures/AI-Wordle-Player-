@@ -5,11 +5,9 @@ import java.util.ArrayList;
 
 public class WordleGame
 {
-    //word lists
     HashSet<String> allowedGuesses;
     ArrayList<String> possibleAnswers;
 
-    //info about the current game
     String answer;
     int guessesRemaining;
 
@@ -53,14 +51,13 @@ public class WordleGame
         int [] results = null;
         while (guessesRemaining > 0)
         {
-            //get the guess from the player, and its results
             String guess = player.getGuess(results, guessesRemaining);
             results = makeGuess(guess);
             if (results == null)
             {
                 System.out.println("Invalid Guess");
             }
-            else if (guess.equals(answer))  //guess was correct
+            else if (guess.equals(answer))  
             {
                 return 6 - guessesRemaining;
             }
